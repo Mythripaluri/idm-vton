@@ -1,1 +1,12 @@
-*.pyc
+# Models (avoid huge files)
+ckpt/
+*.bin
+*.safetensors
+
+# Cache
+__pycache__/
+.cache/
+
+# OS
+*.DS_Store
+Thumbs.db
