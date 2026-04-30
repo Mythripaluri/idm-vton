@@ -145,17 +145,28 @@ pipe = TryonPipeline.from_pretrained(
         base_path,
         unet=unet,
         vae=vae,
-        feature_extractor= CLIPImageProcessor(),
-        text_encoder = text_encoder_one,
-        text_encoder_2 = text_encoder_two,
-        tokenizer = tokenizer_one,
-        tokenizer_2 = tokenizer_two,
-        scheduler = noise_scheduler,
+        feature_extractor=CLIPImageProcessor(),
+        text_encoder=text_encoder_one,
+        text_encoder_2=text_encoder_two,
+        tokenizer=tokenizer_one,
+        tokenizer_2=tokenizer_two,
+        scheduler=noise_scheduler,
         image_encoder=image_encoder,
         torch_dtype=dtype,
         low_cpu_mem_usage=True,
 )
+
 pipe.unet_encoder = UNet_Encoder
+
+# Memory optimizations
+pipe.enable_attention_slicing()
+pipe.enable_vae_slicing()
+
+try:
+    pipe.enable_xformers_memory_efficient_attention()
+    print("xformers enabled")
+except Exception as e:
+    print("xformers not available:", e)
 
 print("UNet loaded")
 
