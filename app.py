@@ -281,8 +281,8 @@ def start_tryon(dict,garm_img,garment_des,is_checked,is_checked_crop,denoise_ste
                         cloth = garm_tensor.to(device, dtype),
                         mask_image=mask,
                         image=human_img, 
-                        height=1024,
-                        width=768,
+                        height = 768
+                        width = 512
                         ip_adapter_image = garm_img.resize((768,1024)),
                         guidance_scale=2.0,
                     )[0]
