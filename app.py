@@ -58,7 +58,6 @@ unet = UNet2DConditionModel.from_pretrained(
     subfolder="unet",
     torch_dtype=dtype,
     low_cpu_mem_usage=True,
-    use_safetensors=True,
 )
 print("UNet loaded")
 print("Loading text encoder 2...")
