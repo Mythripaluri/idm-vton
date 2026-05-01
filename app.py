@@ -58,6 +58,7 @@ unet = UNet2DConditionModel.from_pretrained(
     subfolder="unet",
     torch_dtype=dtype,
     low_cpu_mem_usage=True,
+    use_safetensors=True,
 )
 print("UNet loaded")
 print("Loading text encoder 2...")
@@ -68,6 +69,7 @@ tokenizer_one = AutoTokenizer.from_pretrained(
     revision=None,
     use_fast=False,
     low_cpu_mem_usage=True,
+    use_safetensors=True,
 )
 print("UNet loaded")
 print("Loading text encoder 2...")
@@ -77,10 +79,11 @@ tokenizer_two = AutoTokenizer.from_pretrained(
     revision=None,
     use_fast=False,
     low_cpu_mem_usage=True,
+    use_safetensors=True,
 )
 print("Text encoder 2 loaded")
 print("Loading noise scheduler...")
-noise_scheduler = DDPMScheduler.from_pretrained(base_path, subfolder="scheduler",low_cpu_mem_usage=True)
+noise_scheduler = DDPMScheduler.from_pretrained(base_path, subfolder="scheduler",low_cpu_mem_usage=True, use_safetensors=True,)
 
 text_encoder_one = CLIPTextModel.from_pretrained(
     base_path,
@@ -94,6 +97,7 @@ text_encoder_two = CLIPTextModelWithProjection.from_pretrained(
     subfolder="text_encoder_2",
     torch_dtype=dtype,
     low_cpu_mem_usage=True,
+    use_safetensors=True,
 )
 print("Text encoder 4 loaded")
 print("Loading image encoder 5...")
@@ -102,13 +106,15 @@ image_encoder = CLIPVisionModelWithProjection.from_pretrained(
     subfolder="image_encoder",
     torch_dtype=dtype,
     low_cpu_mem_usage=True,
-    )
+    use_safetensors=True,
+)
 print("Image encoder 5 loaded")
 print("Loading text encoder 6...")
 vae = AutoencoderKL.from_pretrained(base_path,
                                     subfolder="vae",
                                     torch_dtype=dtype,
                                     low_cpu_mem_usage=True,
+                                    use_safetensors=True,
 )
 print("Text encoder 6 loaded")
 print("Loading UNet encoder 7...")
@@ -118,6 +124,7 @@ UNet_Encoder = UNet2DConditionModel_ref.from_pretrained(
     subfolder="unet_encoder",
     torch_dtype=dtype,
     low_cpu_mem_usage=True,
+    use_safetensors=True,
 )
 print("UNet encoder 7 loaded")
 
@@ -154,6 +161,7 @@ pipe = TryonPipeline.from_pretrained(
         image_encoder=image_encoder,
         torch_dtype=dtype,
         low_cpu_mem_usage=True,
+        use_safetensors=True,
 )
 
 pipe.unet_encoder = UNet_Encoder
